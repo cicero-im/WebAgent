@@ -1,12 +1,12 @@
 import json
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import List, Union
-import requests
 from qwen_agent.tools.base import BaseTool, register_tool
 from prompt import EXTRACTOR_PROMPT 
 import os 
 from openai import OpenAI
 import random
+from security import safe_requests
 
 
 WEBCONTENT_MAXLENGTH = int(os.getenv("WEBCONTENT_MAXLENGTH", 150000))
@@ -118,7 +118,7 @@ class Visit(BaseTool):
         
         for attempt in range(max_retries):
             try:
-                response = requests.get(
+                response = safe_requests.get(
                     f"https://r.jina.ai/{url}",
                     headers=headers,
                     timeout=timeout

@@ -1,2 +1,3 @@
 sglang[all]
 qwen-agent[gui,rag,code_interpreter,mcp]
+security==1.3.1

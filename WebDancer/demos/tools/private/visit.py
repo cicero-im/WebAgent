@@ -1,10 +1,10 @@
 import os
 import json
-import requests
 from openai import OpenAI
 from qwen_agent.tools.base import BaseTool, register_tool
 from typing import List
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from security import safe_requests
 
 MAX_MULTIQUERY_NUM = os.getenv("MAX_MULTIQUERY_NUM", 3)
 JINA_API_KEY = os.getenv("JINA_API_KEY")
@@ -51,7 +51,7 @@ def jina_readpage(url: str) -> str:
     
     for attempt in range(max_retries):
         try:
-            response = requests.get(
+            response = safe_requests.get(
                 f"https://r.jina.ai/{url}",
                 headers=headers,
                 timeout=timeout
