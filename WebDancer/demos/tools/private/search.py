@@ -54,7 +54,7 @@ class Search(BaseTool):
 
         for i in range(5):
             try:
-                response = requests.post(url, headers=headers, data=json.dumps(data))
+                response = requests.post(url, headers=headers, data=json.dumps(data), timeout=60)
                 results = response.json()
                 break
             except Exception as e:

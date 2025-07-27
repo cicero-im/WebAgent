@@ -262,7 +262,7 @@ def wenxin_api(ds, output_path):
     
     def get_access_token():
         url = f"https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id={BAIDU_API_KEY}&client_secret={BAIDU_SECRET_KEY}"
-        response = requests.post(url, headers={'Content-Type': 'application/json'})
+        response = requests.post(url, headers={'Content-Type': 'application/json'}, timeout=60)
         return response.json().get("access_token")
 
     url = "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/completions_pro?access_token=" + get_access_token()
@@ -272,7 +272,7 @@ def wenxin_api(ds, output_path):
             "messages": [{"role": "user", "content": data["question"]}]
         })
         headers = {'Content-Type': 'application/json'}
-        response = requests.post(url, headers=headers, data=payload)
+        response = requests.post(url, headers=headers, data=payload, timeout=60)
         return response.json()["result"]
 
     if not os.path.exists(output_path):
