@@ -1,5 +1,5 @@
-import random
 from datetime import datetime, timedelta, timezone
+import secrets
 
 DEFAULT_DATE_FORMAT = "%Y-%m-%d"
 
@@ -33,7 +33,7 @@ def get_date_now() -> list[int]:
 
 
 def get_date_rand(before_days: int = 365, after_days: int = 365) -> list[int]:
-    random_timedelta = timedelta(days=random.randint(-before_days, after_days))
+    random_timedelta = timedelta(days=secrets.SystemRandom().randint(-before_days, after_days))
     rand_time = datetime.now(timezone.utc) + random_timedelta
     date = rand_time.timetuple()
     date = [int(d) for d in [date.tm_year, date.tm_mon, date.tm_mday, date.tm_wday]]

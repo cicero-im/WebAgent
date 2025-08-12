@@ -6,7 +6,7 @@ from qwen_agent.tools.base import BaseTool, register_tool
 from prompt import EXTRACTOR_PROMPT 
 import os 
 from openai import OpenAI
-import random
+import secrets
 
 
 WEBCONTENT_MAXLENGTH = int(os.getenv("WEBCONTENT_MAXLENGTH", 150000))
@@ -111,7 +111,7 @@ class Visit(BaseTool):
             str: The webpage content or error message
         """
         headers = {
-            "Authorization": f"Bearer {random.choice(JINA_API_KEYS)}",
+            "Authorization": f"Bearer {secrets.choice(JINA_API_KEYS)}",
         }
         max_retries = 3
         timeout = 10
